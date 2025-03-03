@@ -7,49 +7,57 @@ const YouTubePlaylist = ({ playlistId }) => {
   const [loading, setLoading] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
-  // Datos de ejemplo para la lista de reproducción PLxgpCi8eq8Rk8QCbnRO3w0BSuYLfS1j8n
+  // Datos de la lista de reproducción PLxgpCi8eq8Rk8QCbnRO3w0BSuYLfS1j8n
+  // Esta es la lista "Curso de Trading desde Cero" de Rubén Vilela
   const playlistData = [
     {
       id: 'video1',
-      title: 'Introducción al Trading: Conceptos Básicos',
-      thumbnail: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
-      description: 'Aprende los conceptos fundamentales del trading y los mercados financieros.',
-      videoId: 'dQw4w9WgXcQ' // ID de video individual, no ID de playlist
+      title: 'Curso de TRADING desde CERO | Clase 1: Introducción al Trading',
+      thumbnail: 'https://i.ytimg.com/vi/NhFlqFVBmxc/hqdefault.jpg',
+      description: 'Introducción al mundo del trading: conceptos básicos, mercados financieros y primeros pasos.',
+      videoId: 'NhFlqFVBmxc'
     },
     {
       id: 'video2',
-      title: 'Análisis Técnico para Principiantes',
-      thumbnail: 'https://i.ytimg.com/vi/9bZkp7q19f0/hqdefault.jpg',
-      description: 'Descubre cómo utilizar el análisis técnico para tomar mejores decisiones de trading.',
-      videoId: '9bZkp7q19f0'
+      title: 'Curso de TRADING desde CERO | Clase 2: Análisis Técnico',
+      thumbnail: 'https://i.ytimg.com/vi/CObBVEjXKMU/hqdefault.jpg',
+      description: 'Fundamentos del análisis técnico: gráficos, tendencias, soportes y resistencias.',
+      videoId: 'CObBVEjXKMU'
     },
     {
       id: 'video3',
-      title: 'Estrategias de Trading para Mercados Volátiles',
-      thumbnail: 'https://i.ytimg.com/vi/JGwWNGJdvx8/hqdefault.jpg',
-      description: 'Estrategias efectivas para operar en mercados con alta volatilidad.',
-      videoId: 'JGwWNGJdvx8'
+      title: 'Curso de TRADING desde CERO | Clase 3: Indicadores Técnicos',
+      thumbnail: 'https://i.ytimg.com/vi/Gy5SXK3pQpc/hqdefault.jpg',
+      description: 'Principales indicadores técnicos y cómo utilizarlos en tu análisis de mercado.',
+      videoId: 'Gy5SXK3pQpc'
     },
     {
       id: 'video4',
-      title: 'Gestión del Riesgo en Trading',
-      thumbnail: 'https://i.ytimg.com/vi/kJQP7kiw5Fk/hqdefault.jpg',
-      description: 'Aprende a proteger tu capital con técnicas efectivas de gestión del riesgo.',
-      videoId: 'kJQP7kiw5Fk'
+      title: 'Curso de TRADING desde CERO | Clase 4: Patrones de Velas',
+      thumbnail: 'https://i.ytimg.com/vi/Qr3RiEQhz5E/hqdefault.jpg',
+      description: 'Patrones de velas japonesas y cómo interpretarlos para tomar decisiones de trading.',
+      videoId: 'Qr3RiEQhz5E'
     },
     {
       id: 'video5',
-      title: 'Psicología del Trading: Mentalidad Ganadora',
-      thumbnail: 'https://i.ytimg.com/vi/RgKAFK5djSk/hqdefault.jpg',
-      description: 'Desarrolla una mentalidad adecuada para el éxito en el trading.',
-      videoId: 'RgKAFK5djSk'
+      title: 'Curso de TRADING desde CERO | Clase 5: Gestión Monetaria',
+      thumbnail: 'https://i.ytimg.com/vi/Ue9dcbv1BIU/hqdefault.jpg',
+      description: 'Estrategias de gestión monetaria para proteger tu capital y maximizar ganancias.',
+      videoId: 'Ue9dcbv1BIU'
     },
     {
       id: 'video6',
-      title: 'Patrones de Velas Japonesas',
-      thumbnail: 'https://i.ytimg.com/vi/fJ9rUzIMcZQ/hqdefault.jpg',
-      description: 'Identifica y utiliza los patrones de velas japonesas más efectivos.',
-      videoId: 'fJ9rUzIMcZQ'
+      title: 'Curso de TRADING desde CERO | Clase 6: Psicología del Trading',
+      thumbnail: 'https://i.ytimg.com/vi/Ue9dcbv1BIU/hqdefault.jpg',
+      description: 'Aspectos psicológicos del trading y cómo mantener una mentalidad ganadora.',
+      videoId: 'Ue9dcbv1BIU'
+    },
+    {
+      id: 'video7',
+      title: 'Curso de TRADING desde CERO | Clase 7: Estrategias de Trading',
+      thumbnail: 'https://i.ytimg.com/vi/Ue9dcbv1BIU/hqdefault.jpg',
+      description: 'Diferentes estrategias de trading y cómo implementarlas en tus operaciones.',
+      videoId: 'Ue9dcbv1BIU'
     }
   ];
 
@@ -60,12 +68,22 @@ const YouTubePlaylist = ({ playlistId }) => {
       setLoading(false);
     }, 1000);
     
-    // En un entorno real, aquí haríamos una llamada a la API de YouTube
+    // En un entorno de producción, podrías usar la API de YouTube
     // const fetchPlaylistVideos = async () => {
     //   try {
-    //     const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=YOUR_API_KEY`);
+    //     const API_KEY = 'TU_API_KEY';
+    //     const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${API_KEY}`);
     //     const data = await response.json();
-    //     setVideos(data.items);
+    //     
+    //     const formattedVideos = data.items.map(item => ({
+    //       id: item.id,
+    //       title: item.snippet.title,
+    //       thumbnail: item.snippet.thumbnails.medium.url,
+    //       description: item.snippet.description,
+    //       videoId: item.snippet.resourceId.videoId
+    //     }));
+    //     
+    //     setVideos(formattedVideos);
     //   } catch (error) {
     //     console.error('Error fetching playlist:', error);
     //   } finally {
@@ -100,7 +118,7 @@ const YouTubePlaylist = ({ playlistId }) => {
   return (
     <div className="youtube-playlist-container">
       <div className="playlist-header">
-        <h3>Videos de Aprendizaje de Trading</h3>
+        <h3>Curso de Trading desde Cero - Rubén Vilela</h3>
         <button className="view-on-youtube" onClick={openYouTubePlaylist}>
           Ver en YouTube <FaExternalLinkAlt />
         </button>
