@@ -36,8 +36,12 @@ const LandingPage = () => {
       }, 1000);
     }, transitionInterval);
 
-    // Prevenir el scroll
+    // Prevenir el scroll y eliminar márgenes
     document.body.style.overflow = 'hidden';
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    document.documentElement.style.margin = '0';
+    document.documentElement.style.padding = '0';
     
     return () => {
       clearInterval(intervalId);
@@ -53,13 +57,25 @@ const LandingPage = () => {
         {/* Capa de imagen actual (siempre visible) */}
         <div 
           className="background-image current-image"
-          style={{ backgroundImage: `url(${backgroundImages[currentImageIndex]})` }}
+          style={{ 
+            backgroundImage: `url(${backgroundImages[currentImageIndex]})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            width: '100vw',
+            height: '100vh'
+          }}
         ></div>
         
         {/* Capa de imagen siguiente (aparece durante la transición) */}
         <div 
           className={`background-image next-image ${isTransitioning ? 'fade-in' : ''}`}
-          style={{ backgroundImage: `url(${backgroundImages[nextImageIndex]})` }}
+          style={{ 
+            backgroundImage: `url(${backgroundImages[nextImageIndex]})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            width: '100vw',
+            height: '100vh'
+          }}
         ></div>
         
         <div className="overlay"></div>

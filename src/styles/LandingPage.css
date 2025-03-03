@@ -743,10 +743,12 @@ body, html {
 
 /* Página completa */
 .landing-page-fullscreen {
-  min-height: 100vh;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   position: relative;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 /* Header/Navbar */
@@ -835,12 +837,14 @@ body, html {
 /* Hero Section con Imágenes de Fondo */
 .hero-fullscreen {
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .background-image {
@@ -851,6 +855,8 @@ body, html {
   height: 100%;
   background-size: cover;
   background-position: center;
+  margin: 0;
+  padding: 0;
 }
 
 .current-image {
@@ -875,6 +881,8 @@ body, html {
   height: 100%;
   background-color: var(--overlay-color);
   z-index: 3;
+  margin: 0;
+  padding: 0;
 }
 
 .hero-content-centered {
@@ -1049,4 +1057,76 @@ body, html {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
+}
+
+/* Resetear márgenes y paddings en todo el documento */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Asegurar que el html y body ocupen toda la pantalla sin márgenes */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Asegurar que el contenedor principal ocupe toda la pantalla */
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Ajustar el contenedor de la página para que ocupe toda la pantalla */
+.landing-page-fullscreen {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Asegurar que la sección hero ocupe toda la pantalla */
+.hero-fullscreen {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ajustar las imágenes de fondo para que cubran toda la pantalla */
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Asegurar que el overlay cubra toda la pantalla */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-color);
+  z-index: 3;
+  margin: 0;
+  padding: 0;
 } 
