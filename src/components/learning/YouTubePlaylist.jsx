@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FaPlay, FaExternalLinkAlt, FaYoutube } from 'react-icons/fa';
-import YouTube from 'react-youtube';
 import '../../styles/YouTubePlaylist.css';
 
 const YouTubePlaylist = ({ playlistId }) => {
