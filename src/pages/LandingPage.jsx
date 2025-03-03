@@ -15,10 +15,7 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      <section className="hero-section">
-        <div className="hero-bg-circle-1"></div>
-        <div className="hero-bg-circle-2"></div>
-        
+      <section className="hero-section hero-section-with-bg">
         <div className="hero-content">
           <h1 className="hero-title">Mejora tu Trading con Análisis Detallado</h1>
           <p className="hero-subtitle">
@@ -29,14 +26,14 @@ const LandingPage = () => {
             <Link to="/dashboard" className="hero-primary-button">
               Comenzar Ahora <FaArrowRight />
             </Link>
-            <button className="hero-secondary-button">
+            <button className="hero-secondary-button" onClick={scrollToFeatures}>
               Saber Más
             </button>
           </div>
           
           <div className="hero-image-container">
             <img 
-              src="/images/trading-dashboard.png" 
+              src="/images/backgrounds/iStock-1455060943.jpg" 
               alt="Trading Dashboard" 
               className="hero-image"
               onError={(e) => {

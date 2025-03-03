@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaPlay, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaPlay, FaExternalLinkAlt, FaYoutube } from 'react-icons/fa';
+import YouTube from 'react-youtube';
 import '../../styles/YouTubePlaylist.css';
 
 const YouTubePlaylist = ({ playlistId }) => {
@@ -12,44 +13,44 @@ const YouTubePlaylist = ({ playlistId }) => {
     {
       id: 'video1',
       title: 'Introducción al Trading: Conceptos Básicos',
-      thumbnail: '/images/video-thumbnails/trading-basics.jpg',
+      thumbnail: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
       description: 'Aprende los conceptos fundamentales del trading y los mercados financieros.',
-      videoId: 'PLxgpCi8eq8Rk8QCbnRO3w0BSuYLfS1j8n'
+      videoId: 'dQw4w9WgXcQ' // ID de video individual, no ID de playlist
     },
     {
       id: 'video2',
       title: 'Análisis Técnico para Principiantes',
-      thumbnail: '/images/video-thumbnails/technical-analysis.jpg',
+      thumbnail: 'https://i.ytimg.com/vi/9bZkp7q19f0/hqdefault.jpg',
       description: 'Descubre cómo utilizar el análisis técnico para tomar mejores decisiones de trading.',
-      videoId: 'PLxgpCi8eq8Rk8QCbnRO3w0BSuYLfS1j8n'
+      videoId: '9bZkp7q19f0'
     },
     {
       id: 'video3',
       title: 'Estrategias de Trading para Mercados Volátiles',
-      thumbnail: '/images/video-thumbnails/volatile-markets.jpg',
+      thumbnail: 'https://i.ytimg.com/vi/JGwWNGJdvx8/hqdefault.jpg',
       description: 'Estrategias efectivas para operar en mercados con alta volatilidad.',
-      videoId: 'PLxgpCi8eq8Rk8QCbnRO3w0BSuYLfS1j8n'
+      videoId: 'JGwWNGJdvx8'
     },
     {
       id: 'video4',
       title: 'Gestión del Riesgo en Trading',
-      thumbnail: '/images/video-thumbnails/risk-management.jpg',
+      thumbnail: 'https://i.ytimg.com/vi/kJQP7kiw5Fk/hqdefault.jpg',
       description: 'Aprende a proteger tu capital con técnicas efectivas de gestión del riesgo.',
-      videoId: 'PLxgpCi8eq8Rk8QCbnRO3w0BSuYLfS1j8n'
+      videoId: 'kJQP7kiw5Fk'
     },
     {
       id: 'video5',
       title: 'Psicología del Trading: Mentalidad Ganadora',
-      thumbnail: '/images/video-thumbnails/trading-psychology.jpg',
+      thumbnail: 'https://i.ytimg.com/vi/RgKAFK5djSk/hqdefault.jpg',
       description: 'Desarrolla una mentalidad adecuada para el éxito en el trading.',
-      videoId: 'PLxgpCi8eq8Rk8QCbnRO3w0BSuYLfS1j8n'
+      videoId: 'RgKAFK5djSk'
     },
     {
       id: 'video6',
       title: 'Patrones de Velas Japonesas',
-      thumbnail: '/images/video-thumbnails/candlestick-patterns.jpg',
+      thumbnail: 'https://i.ytimg.com/vi/fJ9rUzIMcZQ/hqdefault.jpg',
       description: 'Identifica y utiliza los patrones de velas japonesas más efectivos.',
-      videoId: 'PLxgpCi8eq8Rk8QCbnRO3w0BSuYLfS1j8n'
+      videoId: 'fJ9rUzIMcZQ'
     }
   ];
 
@@ -84,6 +85,10 @@ const YouTubePlaylist = ({ playlistId }) => {
     window.open(`https://www.youtube.com/playlist?list=${playlistId}`, '_blank');
   };
 
+  const openYouTubeVideo = (videoId) => {
+    window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+  };
+
   if (loading) {
     return (
       <div className="youtube-playlist-loading">
@@ -108,7 +113,7 @@ const YouTubePlaylist = ({ playlistId }) => {
             <div 
               key={video.id} 
               className={`video-item ${selectedVideo === video ? 'selected' : ''}`}
-              onClick={() => handleVideoSelect(video)}
+              onClick={() => openYouTubeVideo(video.videoId)}
             >
               <div className="video-thumbnail">
                 <img 
@@ -132,26 +137,12 @@ const YouTubePlaylist = ({ playlistId }) => {
         </div>
 
         <div className="video-player">
-          {selectedVideo ? (
-            <div className="player-container">
-              <iframe
-                src={`https://www.youtube.com/embed/${selectedVideo.videoId}?autoplay=1`}
-                title={selectedVideo.title}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-              <h3>{selectedVideo.title}</h3>
-              <p>{selectedVideo.description}</p>
+          <div className="player-placeholder">
+            <div className="placeholder-content">
+              <FaYoutube className="placeholder-icon" style={{ color: '#FF0000', fontSize: '4rem' }} />
+              <p>Haz clic en cualquier video para verlo en YouTube</p>
             </div>
-          ) : (
-            <div className="player-placeholder">
-              <div className="placeholder-content">
-                <FaPlay className="placeholder-icon" />
-                <p>Selecciona un video para comenzar a aprender</p>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
