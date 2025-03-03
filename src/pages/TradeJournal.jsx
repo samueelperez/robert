@@ -4,7 +4,7 @@ import TradeForm from '../components/trades/TradeForm';
 import TradeList from '../components/trades/TradeList';
 // Comentamos temporalmente hasta que el componente esté listo
 // import TradeStats from '../components/trades/TradeStats';
-import { FaPlus, FaFilter, FaChartLine } from 'react-icons/fa';
+import { FaPlus, FaFilter } from 'react-icons/fa';
 
 const TradeJournal = () => {
   const { trades } = useTrades();
