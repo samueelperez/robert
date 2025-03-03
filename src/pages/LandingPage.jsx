@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaChartLine, FaBook, FaChartBar, FaBrain, FaArrowRight } from 'react-icons/fa';
 
 const LandingPage = () => {
   return (
@@ -12,7 +11,7 @@ const LandingPage = () => {
             Registra, analiza y mejora tus operaciones de trading
           </p>
           <Link to="/dashboard" className="cta-button">
-            Comenzar ahora <FaArrowRight />
+            Comenzar ahora →
           </Link>
         </div>
         <div className="hero-image">
@@ -25,7 +24,7 @@ const LandingPage = () => {
         <div className="features-grid">
           <div className="feature-card">
             <div className="feature-icon">
-              <FaChartLine />
+              📈
             </div>
             <h3>Dashboard Interactivo</h3>
             <p>Visualiza tu rendimiento con gráficos interactivos y métricas en tiempo real.</p>
@@ -33,7 +32,7 @@ const LandingPage = () => {
           
           <div className="feature-card">
             <div className="feature-icon">
-              <FaBook />
+              📝
             </div>
             <h3>Diario de Operaciones</h3>
             <p>Registra todas tus operaciones con detalles completos y notas personalizadas.</p>
@@ -41,7 +40,7 @@ const LandingPage = () => {
           
           <div className="feature-card">
             <div className="feature-icon">
-              <FaChartBar />
+              📊
             </div>
             <h3>Análisis de Rendimiento</h3>
             <p>Analiza tu rendimiento con métricas avanzadas y descubre patrones en tus operaciones.</p>
@@ -49,7 +48,7 @@ const LandingPage = () => {
           
           <div className="feature-card">
             <div className="feature-icon">
-              <FaBrain />
+              🧠
             </div>
             <h3>Diario de Aprendizaje</h3>
             <p>Documenta tus lecciones y mantén un registro de tu evolución como trader.</p>
@@ -86,7 +85,7 @@ const LandingPage = () => {
         <h2>¿Listo para mejorar tu trading?</h2>
         <p>Comienza a registrar y analizar tus operaciones hoy mismo.</p>
         <Link to="/dashboard" className="cta-button">
-          Acceder a las herramientas <FaArrowRight />
+          Acceder a las herramientas →
         </Link>
       </section>
     </div>
