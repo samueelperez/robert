@@ -10,7 +10,8 @@ import terceraImg from '../assets/images/tercera.jpg';
 
 const LandingPage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [fadeIn, setFadeIn] = useState(true);
+  const [nextImageIndex, setNextImageIndex] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   
   // Array de imágenes de fondo (usando las imágenes locales)
   const backgroundImages = [
@@ -19,18 +20,31 @@ const LandingPage = () => {
     terceraImg
   ];
 
-  // Efecto para cambiar la imagen de fondo cada 5 segundos
+  // Efecto para cambiar la imagen de fondo cada 6 segundos
   useEffect(() => {
+    const transitionInterval = 6000; // 6 segundos entre transiciones
+    
     const intervalId = setInterval(() => {
-      setFadeIn(false);
+      // Iniciar transición
+      setIsTransitioning(true);
+      
+      // Después de 1 segundo (duración de la transición), actualizar los índices
       setTimeout(() => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
-        setFadeIn(true);
-      }, 1000); // Tiempo de transición de desvanecimiento
-    }, 6000); // Tiempo total entre cambios de imagen
+        setCurrentImageIndex(nextImageIndex);
+        setNextImageIndex((nextImageIndex + 1) % backgroundImages.length);
+        setIsTransitioning(false);
+      }, 1000);
+    }, transitionInterval);
 
-    return () => clearInterval(intervalId);
-  }, [backgroundImages.length]);
+    // Prevenir el scroll
+    document.body.style.overflow = 'hidden';
+    
+    return () => {
+      clearInterval(intervalId);
+      // Restaurar el scroll cuando el componente se desmonte
+      document.body.style.overflow = 'auto';
+    };
+  }, [nextImageIndex, backgroundImages.length]);
 
   const scrollToFeatures = () => {
     const featuresSection = document.querySelector('.features-section');
@@ -48,11 +62,11 @@ const LandingPage = () => {
         </div>
         <nav className="main-nav">
           <ul className="nav-links">
-            <li><a href="#dashboard">Dashboard</a></li>
-            <li><a href="#journal">Diario</a></li>
-            <li><a href="#analytics">Análisis</a></li>
-            <li><a href="#learning">Aprendizaje</a></li>
-            <li><a href="#about">Acerca de</a></li>
+            <li><Link to="/dashboard">Dashboard</Link></li>
+            <li><Link to="/journal">Diario</Link></li>
+            <li><Link to="/analytics">Análisis</Link></li>
+            <li><Link to="/learning">Aprendizaje</Link></li>
+            <li><Link to="/about">Acerca de</Link></li>
           </ul>
         </nav>
         <div className="nav-buttons">
@@ -63,10 +77,18 @@ const LandingPage = () => {
 
       {/* Hero Section con Imágenes de Fondo */}
       <section className="hero-fullscreen">
+        {/* Capa de imagen actual (siempre visible) */}
         <div 
-          className={`background-image ${fadeIn ? 'fade-in' : 'fade-out'}`} 
+          className="background-image current-image"
           style={{ backgroundImage: `url(${backgroundImages[currentImageIndex]})` }}
         ></div>
+        
+        {/* Capa de imagen siguiente (aparece durante la transición) */}
+        <div 
+          className={`background-image next-image ${isTransitioning ? 'fade-in' : ''}`}
+          style={{ backgroundImage: `url(${backgroundImages[nextImageIndex]})` }}
+        ></div>
+        
         <div className="overlay"></div>
         
         <div className="hero-content-centered">
