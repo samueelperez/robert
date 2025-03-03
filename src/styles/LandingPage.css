@@ -1066,67 +1066,65 @@ body, html {
   box-sizing: border-box;
 }
 
-/* Asegurar que el html y body ocupen toda la pantalla sin márgenes */
-html, body {
+/* Asegurar que el html, body y #root ocupen el 100% de la ventana */
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
   overflow: hidden;
 }
 
-/* Asegurar que el contenedor principal ocupe toda la pantalla */
-#root {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
-/* Ajustar el contenedor de la página para que ocupe toda la pantalla */
+/* Contenedor principal a pantalla completa */
 .landing-page-fullscreen {
-  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
-  position: relative;
-  overflow: hidden;
+  height: 100vh;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
-/* Asegurar que la sección hero ocupe toda la pantalla */
+/* Sección hero a pantalla completa */
 .hero-fullscreen {
-  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100vw;
-  position: relative;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
 }
 
-/* Ajustar las imágenes de fondo para que cubran toda la pantalla */
+/* Imágenes de fondo a pantalla completa */
 .background-image {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
 }
 
-/* Asegurar que el overlay cubra toda la pantalla */
+/* Overlay a pantalla completa */
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--overlay-color);
-  z-index: 3;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
+  background-color: var(--overlay-color);
+  z-index: 3;
 } 
