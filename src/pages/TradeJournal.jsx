@@ -5,6 +5,7 @@ import TradeList from '../components/trades/TradeList';
 // Comentamos temporalmente hasta que el componente esté listo
 // import TradeStats from '../components/trades/TradeStats';
 import { FaPlus, FaFilter, FaArrowRight } from 'react-icons/fa';
+import TradingChart from '../components/graphics/TradingChart';
 
 const TradeJournal = () => {
   const { trades } = useTrades();
@@ -92,15 +93,20 @@ const TradeJournal = () => {
           <h1>Diario de Operaciones</h1>
           <p>Registra, analiza y mejora tus operaciones de trading. Lleva un seguimiento detallado de tus entradas y salidas para optimizar tu estrategia.</p>
           
-          <img 
-            src="/images/trading-chart.png" 
-            alt="Gráfico de trading" 
-            className="chart-image"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.style.display = 'none';
-            }}
-          />
+          <div className="chart-container">
+            <img 
+              src="/images/trading-chart.png" 
+              alt="Gráfico de trading" 
+              className="chart-image"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                document.getElementById('welcome-chart').style.display = 'block';
+              }}
+            />
+            <div id="welcome-chart" style={{display: 'none', width: '100%', maxWidth: '700px'}}>
+              <TradingChart />
+            </div>
+          </div>
           
           <button className="start-button" onClick={startJournal}>
             Comenzar ahora <FaArrowRight />

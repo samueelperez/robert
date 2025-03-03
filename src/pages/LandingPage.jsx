@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaChartLine, FaBook, FaChartPie, FaArrowRight, FaGithub, FaTwitter, FaLinkedin } from 'react-icons/fa';
 import '../styles/LandingPage.css';
+import TradingChart from '../components/graphics/TradingChart';
 
 const LandingPage = () => {
   // Función para desplazarse a la sección de características
@@ -33,15 +34,20 @@ const LandingPage = () => {
             </button>
           </div>
           
-          <img 
-            src="/images/trading-dashboard.png" 
-            alt="Trading Dashboard" 
-            className="hero-image"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.style.display = 'none';
-            }}
-          />
+          <div className="hero-image-container">
+            <img 
+              src="/images/trading-dashboard.png" 
+              alt="Trading Dashboard" 
+              className="hero-image"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                document.getElementById('fallback-chart').style.display = 'block';
+              }}
+            />
+            <div id="fallback-chart" style={{display: 'none', width: '100%', maxWidth: '800px'}}>
+              <TradingChart />
+            </div>
+          </div>
         </div>
       </section>
       
