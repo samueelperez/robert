@@ -4,22 +4,24 @@ import './index.css';
 import './styles/LandingPage.css';
 import './styles/VideoList.css';
 import './styles/LearningJournal.css';
-import './styles/Portfolio.css';
 import './styles/TradeJournal.css';
+// Comentamos la importación de Portfolio.css hasta que exista el archivo
+// import './styles/Portfolio.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { TradeProvider } from './context/TradeContext';
 import { ThemeProvider } from './context/ThemeContext';
-import { PortfolioProvider } from './context/PortfolioContext';
+// Comentamos la importación del PortfolioProvider hasta que esté implementado
+// import { PortfolioProvider } from './context/PortfolioContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider>
       <TradeProvider>
-        <PortfolioProvider>
+        {/* <PortfolioProvider> */}
           <App />
-        </PortfolioProvider>
+        {/* </PortfolioProvider> */}
       </TradeProvider>
     </ThemeProvider>
   </React.StrictMode>
