@@ -1,0 +1,59 @@
+/* Estilos para las pestañas */
+.learning-tabs {
+  margin-top: 2rem;
+}
+
+.tab-buttons {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
+}
+
+.tab-button {
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  color: var(--primary-color);
+}
+
+.tab-button.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+/* Layout para la pestaña de entradas */
+.learning-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.learning-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .learning-layout {
+    grid-template-columns: 1fr;
+  }
+} 

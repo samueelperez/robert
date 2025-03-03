@@ -1,90 +1,116 @@
 import React from 'react';
+import { useTrades } from '../../context/TradeContext';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 
-const TradeList = ({ filters }) => {
-  // Datos de ejemplo
-  const trades = [
-    {
-      id: '1',
-      date: '2023-03-01',
-      instrument: 'EUR/USD',
-      type: 'BUY',
-      entryPrice: 1.0850,
-      exitPrice: 1.0900,
-      size: 1.0,
-      profit: 50,
-      result: 'WIN'
-    },
-    {
-      id: '2',
-      date: '2023-03-02',
-      instrument: 'BTC/USD',
-      type: 'SELL',
-      entryPrice: 28500,
-      exitPrice: 28300,
-      size: 0.1,
-      profit: 20,
-      result: 'WIN'
-    },
-    {
-      id: '3',
-      date: '2023-03-03',
-      instrument: 'EUR/JPY',
-      type: 'BUY',
-      entryPrice: 158.50,
-      exitPrice: 158.20,
-      size: 1.0,
-      profit: -30,
-      result: 'LOSS'
-    }
-  ];
+const TradeList = ({ trades }) => {
+  const { deleteTrade } = useTrades();
 
-  // Aplicar filtros (simplificado)
-  const filteredTrades = trades.filter(trade => {
-    if (filters.instrument !== 'all' && trade.instrument !== filters.instrument) return false;
-    if (filters.result !== 'all' && trade.result !== filters.result) return false;
-    return true;
-  });
+  // Formatear fecha
+  const formatDate = (dateString) => {
+    return format(new Date(dateString), 'dd MMM yyyy', { locale: es });
+  };
+
+  // Formatear moneda
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('es-ES', { 
+      style: 'currency', 
+      currency: 'EUR' 
+    }).format(value);
+  };
+
+  // Calcular resultado
+  const calculateResult = (trade) => {
+    if (trade.status !== 'closed') return null;
+    
+    const entryValue = trade.entryPrice * trade.size;
+    const exitValue = trade.exitPrice * trade.size;
+    
+    return trade.type === 'long' 
+      ? exitValue - entryValue 
+      : entryValue - exitValue;
+  };
+
+  if (trades.length === 0) {
+    return (
+      <div className="empty-state">
+        <h3>No hay operaciones registradas</h3>
+        <p>Comienza a registrar tus operaciones para hacer un seguimiento de tu rendimiento.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="trade-list">
-      <h3>Operaciones Registradas</h3>
-      
-      {filteredTrades.length === 0 ? (
-        <p>No hay operaciones que coincidan con los filtros seleccionados.</p>
-      ) : (
-        <div className="trades-table">
-          <div className="table-header">
-            <div className="header-cell">Fecha</div>
-            <div className="header-cell">Instrumento</div>
-            <div className="header-cell">Tipo</div>
-            <div className="header-cell">Entrada</div>
-            <div className="header-cell">Salida</div>
-            <div className="header-cell">Tamaño</div>
-            <div className="header-cell">Beneficio</div>
-            <div className="header-cell">Resultado</div>
-            <div className="header-cell">Acciones</div>
-          </div>
-          
-          {filteredTrades.map(trade => (
-            <div key={trade.id} className="table-row">
-              <div className="cell">{trade.date}</div>
-              <div className="cell">{trade.instrument}</div>
-              <div className="cell">{trade.type}</div>
-              <div className="cell">{trade.entryPrice}</div>
-              <div className="cell">{trade.exitPrice}</div>
-              <div className="cell">{trade.size}</div>
-              <div className={`cell ${trade.profit >= 0 ? 'positive' : 'negative'}`}>
-                {trade.profit > 0 ? '+' : ''}{trade.profit}€
-              </div>
-              <div className={`cell result ${trade.result.toLowerCase()}`}>{trade.result}</div>
-              <div className="cell actions">
-                <button className="btn-edit">Editar</button>
-                <button className="btn-delete">Eliminar</button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+    <div className="trades-table-container">
+      <table className="trades-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Símbolo</th>
+            <th>Tipo</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+            <th>Tamaño</th>
+            <th>Estado</th>
+            <th>Resultado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {trades.map(trade => {
+            const result = calculateResult(trade);
+            
+            return (
+              <tr key={trade.id}>
+                <td>{formatDate(trade.entryDate)}</td>
+                <td>{trade.symbol}</td>
+                <td>{trade.type === 'long' ? 'Compra' : 'Venta'}</td>
+                <td>{formatCurrency(trade.entryPrice)}</td>
+                <td>{trade.exitPrice ? formatCurrency(trade.exitPrice) : '-'}</td>
+                <td>{trade.size}</td>
+                <td>
+                  <span className={`trade-status ${trade.status}`}>
+                    {trade.status === 'open' && 'Abierta'}
+                    {trade.status === 'closed' && 'Cerrada'}
+                    {trade.status === 'cancelled' && 'Cancelada'}
+                  </span>
+                </td>
+                <td>
+                  {result !== null ? (
+                    <span className={`trade-result ${result >= 0 ? 'profit' : 'loss'}`}>
+                      {formatCurrency(result)}
+                    </span>
+                  ) : (
+                    '-'
+                  )}
+                </td>
+                <td>
+                  <div className="trade-actions">
+                    <button className="view-btn" title="Ver detalles">
+                      <FaEye />
+                    </button>
+                    <button className="edit-btn" title="Editar">
+                      <FaEdit />
+                    </button>
+                    <button 
+                      className="delete-btn" 
+                      title="Eliminar"
+                      onClick={() => {
+                        if (window.confirm('¿Estás seguro de que quieres eliminar esta operación?')) {
+                          deleteTrade(trade.id);
+                        }
+                      }}
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
