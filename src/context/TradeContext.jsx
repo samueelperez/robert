@@ -1,8 +1,11 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 // Crear el contexto
 export const TradeContext = createContext();
+
+// Hook personalizado para usar el contexto
+export const useTrades = () => useContext(TradeContext);
 
 // Proveedor del contexto
 export const TradeProvider = ({ children }) => {
@@ -41,8 +44,12 @@ export const TradeProvider = ({ children }) => {
   // Añadir un nuevo trade
   const addTrade = (newTrade) => {
     // Generar un ID único para el nuevo trade
-    const id = `trade-${Date.now()}`;
-    const tradeWithId = { ...newTrade, id };
+    const id = uuidv4(); // Usando uuid para generar IDs únicos
+    const tradeWithId = { 
+      ...newTrade, 
+      id,
+      date: newTrade.date || new Date().toISOString() // Asegurar que hay una fecha
+    };
     setTrades([...trades, tradeWithId]);
     return tradeWithId;
   };
