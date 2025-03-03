@@ -46,35 +46,8 @@ const LandingPage = () => {
     };
   }, [nextImageIndex, backgroundImages.length]);
 
-  const scrollToFeatures = () => {
-    const featuresSection = document.querySelector('.features-section');
-    if (featuresSection) {
-      featuresSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="landing-page-fullscreen">
-      {/* Header/Navbar */}
-      <header className="main-header">
-        <div className="logo">
-          <h1 className="logo-text">Trading Journal</h1>
-        </div>
-        <nav className="main-nav">
-          <ul className="nav-links">
-            <li><Link to="/dashboard">Dashboard</Link></li>
-            <li><Link to="/journal">Diario</Link></li>
-            <li><Link to="/analytics">Análisis</Link></li>
-            <li><Link to="/learning">Aprendizaje</Link></li>
-            <li><Link to="/about">Acerca de</Link></li>
-          </ul>
-        </nav>
-        <div className="nav-buttons">
-          <Link to="/login" className="login-button">Iniciar Sesión</Link>
-          <Link to="/dashboard" className="signup-button">Registrarse</Link>
-        </div>
-      </header>
-
       {/* Hero Section con Imágenes de Fondo */}
       <section className="hero-fullscreen">
         {/* Capa de imagen actual (siempre visible) */}
