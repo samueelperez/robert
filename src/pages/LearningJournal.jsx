@@ -90,7 +90,7 @@ const LearningJournal = () => {
     document.documentElement.style.position = 'static';
     
     // Forzar un reflow para aplicar los cambios
-    document.body.offsetHeight;
+    const _ = document.body.offsetHeight;
     
     // Limpiar al desmontar
     return () => {
