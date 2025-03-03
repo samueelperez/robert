@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useTrades } from '../context/TradeContext';
 import TradeForm from '../components/trades/TradeForm';
 import TradeList from '../components/trades/TradeList';
-import TradeStats from '../components/trades/TradeStats';
+// Comentamos temporalmente hasta que el componente esté listo
+// import TradeStats from '../components/trades/TradeStats';
 import { FaPlus, FaFilter, FaChartLine } from 'react-icons/fa';
 
 const TradeJournal = () => {
@@ -74,6 +75,7 @@ const TradeJournal = () => {
     <div className="trade-journal-container">
       <div className="trade-journal-header">
         <h2>Diario de Operaciones</h2>
+        
         <div className="trade-journal-actions">
           <button onClick={() => setShowForm(!showForm)}>
             <FaPlus /> {showForm ? 'Cancelar' : 'Nueva Operación'}
@@ -84,14 +86,10 @@ const TradeJournal = () => {
         </div>
       </div>
       
-      {showForm && (
-        <TradeForm 
-          onClose={() => setShowForm(false)} 
-        />
-      )}
+      {showForm && <TradeForm onComplete={() => setShowForm(false)} />}
       
       {showFilters && (
-        <div className="trade-filters">
+        <div className="filters-container">
           <div className="filter-group">
             <label htmlFor="symbol">Símbolo</label>
             <input
@@ -100,7 +98,7 @@ const TradeJournal = () => {
               name="symbol"
               value={filters.symbol}
               onChange={handleFilterChange}
-              placeholder="Ej: AAPL"
+              placeholder="Ej: EURUSD"
             />
           </div>
           
@@ -167,9 +165,11 @@ const TradeJournal = () => {
         <div className="trade-journal-main">
           <TradeList trades={filteredTrades} />
         </div>
+        {/* Comentamos temporalmente hasta que el componente esté listo
         <div className="trade-journal-sidebar">
           <TradeStats trades={trades} />
         </div>
+        */}
       </div>
     </div>
   );
