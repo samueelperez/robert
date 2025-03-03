@@ -29,6 +29,19 @@
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Asegurar que el cuerpo de la página permita scroll en esta sección */
+body.learning-page {
+  overflow: auto !important;
+  height: auto !important;
+}
+
+html.learning-page {
+  overflow: auto !important;
+  height: auto !important;
 }
 
 /* Encabezado */

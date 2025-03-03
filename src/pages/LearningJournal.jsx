@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaVideo, FaPlay } from 'react-icons/fa';
 import '../styles/LearningJournal.css';
 
@@ -49,6 +49,22 @@ const LearningJournal = () => {
     setSelectedVideo(video);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Habilitar el scroll cuando se monte este componente
+  useEffect(() => {
+    // Guardar el estado actual del overflow
+    const originalOverflow = document.body.style.overflow;
+    
+    // Habilitar el scroll
+    document.body.style.overflow = 'auto';
+    document.documentElement.style.overflow = 'auto';
+    
+    // Restaurar el estado original cuando se desmonte el componente
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.documentElement.style.overflow = originalOverflow;
+    };
+  }, []);
 
   return (
     <div className="learning-journal-container">
