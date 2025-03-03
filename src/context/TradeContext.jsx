@@ -1,97 +1,84 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const TradeContext = createContext();
+// Crear el contexto
+export const TradeContext = createContext();
 
-const initialState = {
-  trades: [],
-  loading: false,
-  error: null
-};
+// Proveedor del contexto
+export const TradeProvider = ({ children }) => {
+  const [trades, setTrades] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-function tradeReducer(state, action) {
-  switch (action.type) {
-    case 'FETCH_TRADES_SUCCESS':
-      return { ...state, trades: action.payload, loading: false };
-    case 'ADD_TRADE':
-      return { ...state, trades: [...state.trades, action.payload] };
-    case 'UPDATE_TRADE':
-      return {
-        ...state,
-        trades: state.trades.map(trade => 
-          trade.id === action.payload.id ? action.payload : trade
-        )
-      };
-    case 'DELETE_TRADE':
-      return {
-        ...state,
-        trades: state.trades.filter(trade => trade.id !== action.payload)
-      };
-    case 'SET_LOADING':
-      return { ...state, loading: action.payload };
-    case 'SET_ERROR':
-      return { ...state, error: action.payload, loading: false };
-    default:
-      return state;
-  }
-}
-
-export function TradeProvider({ children }) {
-  const [state, dispatch] = useReducer(tradeReducer, initialState);
-  
-  // Cargar datos del localStorage al iniciar
+  // Cargar trades desde localStorage al iniciar
   useEffect(() => {
     const loadTrades = () => {
       try {
-        dispatch({ type: 'SET_LOADING', payload: true });
         const savedTrades = localStorage.getItem('trades');
         if (savedTrades) {
-          dispatch({ 
-            type: 'FETCH_TRADES_SUCCESS', 
-            payload: JSON.parse(savedTrades) 
-          });
+          setTrades(JSON.parse(savedTrades));
+        } else {
+          // Si no hay trades guardados, inicializar con un array vacío
+          setTrades([]);
         }
       } catch (error) {
-        dispatch({ type: 'SET_ERROR', payload: error.message });
+        console.error('Error loading trades from localStorage:', error);
+        setTrades([]);
+      } finally {
+        setIsLoading(false);
       }
     };
-    
+
     loadTrades();
   }, []);
-  
-  // Guardar en localStorage cuando cambian los trades
+
+  // Guardar trades en localStorage cuando cambian
   useEffect(() => {
-    localStorage.setItem('trades', JSON.stringify(state.trades));
-  }, [state.trades]);
-  
-  // Acciones
-  const addTrade = (trade) => {
-    const newTrade = {
-      ...trade,
-      id: uuidv4(),
-      date: new Date().toISOString()
-    };
-    dispatch({ type: 'ADD_TRADE', payload: newTrade });
+    if (!isLoading) {
+      localStorage.setItem('trades', JSON.stringify(trades));
+    }
+  }, [trades, isLoading]);
+
+  // Añadir un nuevo trade
+  const addTrade = (newTrade) => {
+    // Generar un ID único para el nuevo trade
+    const id = `trade-${Date.now()}`;
+    const tradeWithId = { ...newTrade, id };
+    setTrades([...trades, tradeWithId]);
+    return tradeWithId;
   };
-  
-  const updateTrade = (trade) => {
-    dispatch({ type: 'UPDATE_TRADE', payload: trade });
+
+  // Actualizar un trade existente
+  const updateTrade = (updatedTrade) => {
+    setTrades(trades.map(trade => 
+      trade.id === updatedTrade.id ? updatedTrade : trade
+    ));
   };
-  
-  const deleteTrade = (id) => {
-    dispatch({ type: 'DELETE_TRADE', payload: id });
+
+  // Eliminar un trade
+  const deleteTrade = (tradeId) => {
+    setTrades(trades.filter(trade => trade.id !== tradeId));
   };
-  
+
+  // Obtener un trade por su ID
+  const getTradeById = (tradeId) => {
+    return trades.find(trade => trade.id === tradeId);
+  };
+
+  // Valor del contexto que se proporcionará
+  const contextValue = {
+    trades,
+    isLoading,
+    addTrade,
+    updateTrade,
+    deleteTrade,
+    getTradeById
+  };
+
   return (
-    <TradeContext.Provider value={{ 
-      ...state, 
-      addTrade, 
-      updateTrade, 
-      deleteTrade 
-    }}>
+    <TradeContext.Provider value={contextValue}>
       {children}
     </TradeContext.Provider>
   );
-}
+};
 
-export const useTrades = () => useContext(TradeContext); 
+export default TradeProvider; 
