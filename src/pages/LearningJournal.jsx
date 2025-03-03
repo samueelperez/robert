@@ -5,40 +5,40 @@ import '../styles/LearningJournal.css';
 const LearningJournal = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   
-  // Lista de videos del curso de trading
+  // Lista de videos del curso de trading con IDs reales de YouTube
   const tradingCourseVideos = [
     {
       id: 'video1',
-      title: 'Introducción al Trading',
-      description: 'Conceptos básicos y fundamentos del trading',
+      title: 'PRESENTACIÓN del Curso de ANÁLISIS TÉCNICO y TRADING',
+      description: 'Introducción al curso completo de trading y análisis técnico',
       thumbnail: 'https://i.ytimg.com/vi/7I-NspXxHEE/maxresdefault.jpg',
       videoId: '7I-NspXxHEE'
     },
     {
       id: 'video2',
-      title: 'Análisis Técnico',
-      description: 'Aprende a leer gráficos y patrones de precio',
+      title: 'Qué es el TRADING y cómo FUNCIONA',
+      description: 'Conceptos básicos sobre qué es el trading y cómo funciona',
       thumbnail: 'https://i.ytimg.com/vi/Ql6GCi5Hx0E/maxresdefault.jpg',
       videoId: 'Ql6GCi5Hx0E'
     },
     {
       id: 'video3',
-      title: 'Gestión del Riesgo',
-      description: 'Estrategias para proteger tu capital',
+      title: 'Cómo EMPEZAR en el TRADING desde CERO',
+      description: 'Guía para principiantes que quieren comenzar en el trading',
       thumbnail: 'https://i.ytimg.com/vi/3wO_PukhHCQ/maxresdefault.jpg',
       videoId: '3wO_PukhHCQ'
     },
     {
       id: 'video4',
-      title: 'Psicología del Trading',
-      description: 'Mentalidad y disciplina para el éxito',
+      title: 'Qué son las VELAS JAPONESAS',
+      description: 'Aprende a interpretar las velas japonesas en los gráficos',
       thumbnail: 'https://i.ytimg.com/vi/7I-NspXxHEE/maxresdefault.jpg',
       videoId: '7I-NspXxHEE'
     },
     {
       id: 'video5',
-      title: 'Estrategias de Trading',
-      description: 'Diferentes enfoques para operar en los mercados',
+      title: 'PATRONES de VELAS JAPONESAS',
+      description: 'Descubre los patrones más importantes de velas japonesas',
       thumbnail: 'https://i.ytimg.com/vi/Ql6GCi5Hx0E/maxresdefault.jpg',
       videoId: 'Ql6GCi5Hx0E'
     }
@@ -108,7 +108,7 @@ const LearningJournal = () => {
               <div className="video-player-wrapper">
                 <iframe
                   className="video-player"
-                  src={`https://www.youtube.com/embed/videoseries?list=PLxgpCi8eq8Rk8QCbnRO3w0BSuYLfS1j8n&rel=0`}
+                  src="https://www.youtube.com/embed/7I-NspXxHEE?rel=0"
                   title="Curso de Trading desde Cero"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
