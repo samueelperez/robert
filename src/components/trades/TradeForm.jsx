@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useTrades } from '../../context/TradeContext';
 
 const TradeForm = () => {
+  const { addTrade } = useTrades();
   const [formData, setFormData] = useState({
     instrument: '',
     type: 'BUY',
@@ -19,8 +21,28 @@ const TradeForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí iría la lógica para guardar la operación
-    console.log('Formulario enviado:', formData);
+    
+    // Calcular el beneficio
+    const entryPrice = parseFloat(formData.entryPrice);
+    const exitPrice = parseFloat(formData.exitPrice);
+    const size = parseFloat(formData.size);
+    
+    let profit;
+    if (formData.type === 'BUY') {
+      profit = (exitPrice - entryPrice) * size;
+    } else {
+      profit = (entryPrice - exitPrice) * size;
+    }
+    
+    // Añadir la operación al contexto
+    addTrade({
+      ...formData,
+      entryPrice: parseFloat(formData.entryPrice),
+      exitPrice: parseFloat(formData.exitPrice),
+      size: parseFloat(formData.size),
+      profit: Math.round(profit * 100) / 100
+    });
+    
     // Resetear el formulario
     setFormData({
       instrument: '',
