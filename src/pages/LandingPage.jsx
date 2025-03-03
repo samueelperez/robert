@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { FaChartLine, FaBook, FaChartPie, FaArrowRight, FaGithub, FaTwitter, FaLinkedin } from 'react-icons/fa';
 import '../styles/LandingPage.css';
 import TradingChart from '../components/graphics/TradingChart';
-// Importar una imagen de fondo alternativa
-import backgroundImage from '../assets/images/trading-background.jpg';
 
 const LandingPage = () => {
   // Función para desplazarse a la sección de características
@@ -17,12 +15,7 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      <section className="hero-section" style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        color: 'white'
-      }}>
+      <section className="hero-section hero-section-with-bg">
         <div className="hero-content">
           <h1 className="hero-title">Mejora tu Trading con Análisis Detallado</h1>
           <p className="hero-subtitle">
