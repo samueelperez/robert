@@ -943,25 +943,34 @@ body, html {
 /* Badges en la parte inferior */
 .bottom-badges {
   position: absolute;
-  bottom: 2rem;
-  right: 2rem;
+  bottom: 2.5rem;
+  right: 2.5rem;
   display: flex;
   gap: 1rem;
   z-index: 10;
 }
 
 .badge {
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 0.25rem;
-  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all var(--transition-fast);
 }
 
-.badge img {
-  max-height: 40px;
-  width: auto;
+.badge:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+}
+
+.badge-text {
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 0.875rem;
 }
 
 /* Media queries para responsividad */
@@ -1025,4 +1034,12 @@ body, html {
     flex-direction: column;
     gap: 0.5rem;
   }
+}
+
+/* Logo de texto */
+.logo-text {
+  color: var(--text-light);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
 } 

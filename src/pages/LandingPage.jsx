@@ -2,18 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import '../styles/LandingPage.css';
-import TradingChart from '../components/graphics/TradingChart';
+
+// Importar las imágenes locales
+import primeraImg from '../assets/images/primera.jpg';
+import segundaImg from '../assets/images/segunda.jpg';
+import terceraImg from '../assets/images/tercera.jpg';
 
 const LandingPage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fadeIn, setFadeIn] = useState(true);
   
-  // Array de imágenes de fondo (puedes reemplazar estas URLs con tus propias imágenes)
+  // Array de imágenes de fondo (usando las imágenes locales)
   const backgroundImages = [
-    'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1535320903710-d993d3d77d29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1642790551116-18e150f248e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1950&q=80'
+    primeraImg,
+    segundaImg,
+    terceraImg
   ];
 
   // Efecto para cambiar la imagen de fondo cada 5 segundos
@@ -41,7 +44,7 @@ const LandingPage = () => {
       {/* Header/Navbar */}
       <header className="main-header">
         <div className="logo">
-          <img src="/logo.png" alt="Logo" className="logo-image" />
+          <h1 className="logo-text">Trading Journal</h1>
         </div>
         <nav className="main-nav">
           <ul className="nav-links">
@@ -92,13 +95,13 @@ const LandingPage = () => {
         {/* Logos o badges en la parte inferior */}
         <div className="bottom-badges">
           <div className="badge">
-            <img src="https://via.placeholder.com/120x60?text=Badge1" alt="Badge 1" />
+            <span className="badge-text">10k+ Traders</span>
           </div>
           <div className="badge">
-            <img src="https://via.placeholder.com/120x60?text=Badge2" alt="Badge 2" />
+            <span className="badge-text">1M+ Operaciones</span>
           </div>
           <div className="badge">
-            <img src="https://via.placeholder.com/120x60?text=Badge3" alt="Badge 3" />
+            <span className="badge-text">98% Satisfacción</span>
           </div>
         </div>
       </section>
