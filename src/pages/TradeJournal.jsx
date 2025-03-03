@@ -4,12 +4,13 @@ import TradeForm from '../components/trades/TradeForm';
 import TradeList from '../components/trades/TradeList';
 // Comentamos temporalmente hasta que el componente esté listo
 // import TradeStats from '../components/trades/TradeStats';
-import { FaPlus, FaFilter } from 'react-icons/fa';
+import { FaPlus, FaFilter, FaArrowRight } from 'react-icons/fa';
 
 const TradeJournal = () => {
   const { trades } = useTrades();
   const [showForm, setShowForm] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
   const [filters, setFilters] = useState({
     symbol: '',
     type: '',
@@ -18,6 +19,13 @@ const TradeJournal = () => {
     dateTo: ''
   });
   const [filteredTrades, setFilteredTrades] = useState([]);
+
+  // Comprobar si ya hay operaciones para mostrar la bienvenida o no
+  useEffect(() => {
+    if (trades.length > 0) {
+      setShowWelcome(false);
+    }
+  }, [trades]);
 
   // Aplicar filtros cuando cambian
   useEffect(() => {
@@ -70,6 +78,37 @@ const TradeJournal = () => {
       dateTo: ''
     });
   };
+
+  // Comenzar a usar el diario
+  const startJournal = () => {
+    setShowWelcome(false);
+    setShowForm(true);
+  };
+
+  if (showWelcome && trades.length === 0) {
+    return (
+      <div className="trade-journal-container">
+        <div className="trade-journal-welcome">
+          <h1>Diario de Operaciones</h1>
+          <p>Registra, analiza y mejora tus operaciones de trading. Lleva un seguimiento detallado de tus entradas y salidas para optimizar tu estrategia.</p>
+          
+          <img 
+            src="/images/trading-chart.png" 
+            alt="Gráfico de trading" 
+            className="chart-image"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.style.display = 'none';
+            }}
+          />
+          
+          <button className="start-button" onClick={startJournal}>
+            Comenzar ahora <FaArrowRight />
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="trade-journal-container">

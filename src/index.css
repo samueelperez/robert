@@ -53,6 +53,8 @@ code {
 .main-content {
   display: flex;
   flex: 1;
+  min-height: calc(100vh - 120px); /* Ajustar según la altura del header y footer */
+  padding: 1rem;
 }
 
 .sidebar {
@@ -127,4 +129,11 @@ code {
   .content-area {
     padding: 1rem;
   }
+}
+
+/* Añadir o modificar en el archivo de estilos globales */
+html, body, #root, .app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
