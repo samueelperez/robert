@@ -2,6 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
+  // Función para desplazarse a la sección de características
+  const scrollToFeatures = () => {
+    const featuresSection = document.querySelector('.features-section');
+    if (featuresSection) {
+      featuresSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="landing-page">
       <header className="hero-section">
@@ -17,9 +25,15 @@ const LandingPage = () => {
         <div className="hero-image">
           <img src="/images/trading-chart.svg" alt="Trading Chart" />
         </div>
+        
+        {/* Indicador de desplazamiento */}
+        <div className="scroll-indicator" onClick={scrollToFeatures}>
+          <span>Descubre más</span>
+          <div className="scroll-arrow"></div>
+        </div>
       </header>
 
-      <section className="features-section">
+      <section className="features-section" id="features">
         <h2>Características Principales</h2>
         <div className="features-grid">
           <div className="feature-card">
