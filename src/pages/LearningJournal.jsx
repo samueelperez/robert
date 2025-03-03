@@ -191,4 +191,3 @@ const LearningJournal = () => {
 };
 
 export default LearningJournal; 
-export default LearningJournal; 
