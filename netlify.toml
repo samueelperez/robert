@@ -1,5 +1,5 @@
 [build]
-  base = "robert/robert-app"
+  base = "robert"
   command = "npm run build"
   publish = "build"
 
