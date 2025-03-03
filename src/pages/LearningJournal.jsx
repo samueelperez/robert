@@ -50,34 +50,60 @@ const LearningJournal = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Habilitar el scroll cuando se monte este componente
+  // Solución radical para el problema de scroll
   useEffect(() => {
-    // Añadir clase específica al body y html
-    document.body.classList.add('learning-page');
-    document.documentElement.classList.add('learning-page');
+    // Crear un estilo global que sobrescriba cualquier restricción de scroll
+    const styleElement = document.createElement('style');
+    styleElement.textContent = `
+      html, body, #root, .app-container, .learning-journal-wrapper {
+        height: auto !important;
+        min-height: 100% !important;
+        max-height: none !important;
+        overflow: visible !important;
+        overflow-y: visible !important;
+        position: static !important;
+      }
+      
+      .learning-journal-container {
+        position: relative !important;
+        overflow: visible !important;
+        height: auto !important;
+        min-height: 100% !important;
+      }
+      
+      * {
+        overflow-anchor: none !important;
+      }
+    `;
+    document.head.appendChild(styleElement);
     
-    // Establecer overflow explícitamente
-    document.body.style.overflow = 'auto';
+    // Desactivar cualquier manipulación de overflow en el body
+    const originalOverflow = document.body.style.overflow;
+    const originalHeight = document.body.style.height;
+    const originalPosition = document.body.style.position;
+    
+    document.body.style.overflow = 'visible';
     document.body.style.height = 'auto';
-    document.documentElement.style.overflow = 'auto';
+    document.body.style.position = 'static';
+    document.documentElement.style.overflow = 'visible';
     document.documentElement.style.height = 'auto';
+    document.documentElement.style.position = 'static';
     
-    // Eliminar cualquier posición fija que pueda estar interfiriendo
-    document.body.style.position = 'relative';
+    // Forzar un reflow para aplicar los cambios
+    document.body.offsetHeight;
     
     // Limpiar al desmontar
     return () => {
-      document.body.classList.remove('learning-page');
-      document.documentElement.classList.remove('learning-page');
-      
-      // No restauramos los estilos originales para evitar conflictos
-      // con la página de inicio que requiere overflow: hidden
+      document.head.removeChild(styleElement);
+      document.body.style.overflow = originalOverflow;
+      document.body.style.height = originalHeight;
+      document.body.style.position = originalPosition;
     };
   }, []);
 
   return (
-    <div className="learning-journal-wrapper">
-      <div className="learning-journal-container">
+    <div className="learning-journal-wrapper" style={{ overflow: 'visible', height: 'auto', minHeight: '100%' }}>
+      <div className="learning-journal-container" style={{ overflow: 'visible', height: 'auto' }}>
         {/* Encabezado */}
         <div className="learning-header">
           <h1>Curso de Trading desde Cero</h1>
@@ -166,6 +192,9 @@ const LearningJournal = () => {
             Ver Lista Completa en YouTube
           </a>
         </div>
+        
+        {/* Espacio adicional al final para asegurar que se pueda hacer scroll */}
+        <div style={{ height: '50px' }}></div>
       </div>
     </div>
   );
