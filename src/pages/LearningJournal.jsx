@@ -18,6 +18,40 @@ const LearningJournal = () => {
   const [loading, setLoading] = useState(true);
   const [featuredResource, setFeaturedResource] = useState(null);
 
+  // Función para obtener el icono según el tipo de recurso
+  const getTypeIcon = (type) => {
+    switch (type) {
+      case 'articulo':
+        return <FaBook className="resource-type-icon article" />;
+      case 'video':
+        return <FaVideo className="resource-type-icon video" />;
+      case 'curso':
+        return <FaChartLine className="resource-type-icon course" />;
+      default:
+        return null;
+    }
+  };
+
+  // Manejar cambios en los filtros
+  const handleFilterChange = (filterName, value) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [filterName]: value
+    }));
+  };
+
+  // Resetear todos los filtros
+  const resetFilters = () => {
+    setSearchTerm('');
+    setActiveTab('todos');
+    setFilters({
+      nivel: 'todos',
+      categoria: 'todos',
+      duracion: 'todos',
+      valoracion: 'todos'
+    });
+  };
+
   // Datos de ejemplo para recursos de aprendizaje
   useEffect(() => {
     // Simular carga de datos
@@ -173,24 +207,24 @@ const LearningJournal = () => {
     }
 
     if (filters.duracion !== 'todos') {
-      // Lógica para filtrar por duración
       switch (filters.duracion) {
         case 'corto':
-          filtered = filtered.filter(resource => 
-            resource.type === 'articulo' || 
-            (resource.type === 'video' && parseInt(resource.duration) < 30)
-          );
+          filtered = filtered.filter(resource => {
+            const minutes = parseInt(resource.duration);
+            return !isNaN(minutes) && minutes < 30;
+          });
           break;
         case 'medio':
-          filtered = filtered.filter(resource => 
-            (resource.type === 'video' && parseInt(resource.duration) >= 30 && parseInt(resource.duration) <= 60) ||
-            (resource.type === 'curso' && parseFloat(resource.duration) <= 2)
-          );
+          filtered = filtered.filter(resource => {
+            const minutes = parseInt(resource.duration);
+            return !isNaN(minutes) && minutes >= 30 && minutes <= 60;
+          });
           break;
         case 'largo':
-          filtered = filtered.filter(resource => 
-            (resource.type === 'curso' && parseFloat(resource.duration) > 2)
-          );
+          filtered = filtered.filter(resource => {
+            const hours = resource.duration.includes('hora');
+            return hours;
+          });
           break;
         default:
           break;
@@ -198,59 +232,30 @@ const LearningJournal = () => {
     }
 
     if (filters.valoracion !== 'todos') {
-      filtered = filtered.filter(resource => resource.rating >= parseFloat(filters.valoracion));
+      const minRating = parseFloat(filters.valoracion);
+      filtered = filtered.filter(resource => resource.rating >= minRating);
     }
 
     setFilteredResources(filtered);
   }, [searchTerm, activeTab, filters, resources]);
 
-  const handleFilterChange = (filterType, value) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterType]: value
-    }));
-  };
-
-  const resetFilters = () => {
-    setFilters({
-      nivel: 'todos',
-      categoria: 'todos',
-      duracion: 'todos',
-      valoracion: 'todos'
-    });
-    setSearchTerm('');
-  };
-
-  const getTypeIcon = (type) => {
-    switch (type) {
-      case 'articulo':
-        return <FaBook className="resource-type-icon article" />;
-      case 'video':
-        return <FaVideo className="resource-type-icon video" />;
-      case 'curso':
-        return <FaChartLine className="resource-type-icon course" />;
-      default:
-        return <FaBook className="resource-type-icon" />;
-    }
-  };
-
   return (
     <div className="learning-journal-container">
       {/* Hero Section */}
-      <section className="learning-hero">
+      <div className="learning-hero">
         <div className="learning-hero-content">
-          <h1>Centro de Aprendizaje</h1>
-          <p>Mejora tus habilidades de trading con nuestra colección de recursos educativos</p>
+          <h1>Centro de Aprendizaje de Trading</h1>
+          <p>Explora nuestra colección de recursos para mejorar tus habilidades de trading</p>
           
           <div className="search-container">
             <div className="search-input-wrapper">
               <FaSearch className="search-icon" />
               <input 
                 type="text" 
+                className="search-input" 
                 placeholder="Buscar recursos..." 
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input"
               />
             </div>
             <button 
@@ -261,13 +266,13 @@ const LearningJournal = () => {
             </button>
           </div>
         </div>
-      </section>
-
+      </div>
+      
       {/* Filters Panel */}
       <div className={`filters-panel ${filterOpen ? 'open' : ''}`}>
         <div className="filters-header">
-          <h3>Filtros</h3>
-          <button className="reset-filters" onClick={resetFilters}>Restablecer</button>
+          <h3>Filtrar recursos</h3>
+          <button className="reset-filters" onClick={resetFilters}>Restablecer filtros</button>
         </div>
         
         <div className="filters-grid">
@@ -309,9 +314,9 @@ const LearningJournal = () => {
               onChange={(e) => handleFilterChange('duracion', e.target.value)}
             >
               <option value="todos">Cualquier duración</option>
-              <option value="corto">Corto (< 30 min)</option>
+              <option value="corto">Corto (&lt; 30 min)</option>
               <option value="medio">Medio (30-60 min)</option>
-              <option value="largo">Largo (> 1 hora)</option>
+              <option value="largo">Largo (&gt; 1 hora)</option>
             </select>
           </div>
           
