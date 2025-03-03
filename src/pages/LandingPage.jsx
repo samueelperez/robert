@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaChartLine, FaBook, FaChartPie, FaArrowRight, FaGithub, FaTwitter, FaLinkedin } from 'react-icons/fa';
 import '../styles/LandingPage.css';
 import TradingChart from '../components/graphics/TradingChart';
+import tradingBackground from '../assets/images/trading-background.jpg';
 
 const LandingPage = () => {
   // Función para desplazarse a la sección de características
@@ -15,7 +16,12 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      <section className="hero-section hero-section-with-bg">
+      <section className="hero-section" style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${tradingBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        color: 'white'
+      }}>
         <div className="hero-content">
           <h1 className="hero-title">Mejora tu Trading con Análisis Detallado</h1>
           <p className="hero-subtitle">
@@ -33,7 +39,7 @@ const LandingPage = () => {
           
           <div className="hero-image-container">
             <img 
-              src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1950&q=80" 
+              src={tradingBackground}
               alt="Trading Dashboard" 
               className="hero-image"
               onError={(e) => {

@@ -434,4 +434,50 @@
   color: white;
 }
 
-/* Si prefieres usar la imagen como fondo, puedes aplicar esta clase a la sección hero */ 
+/* Si prefieres usar la imagen como fondo, puedes aplicar esta clase a la sección hero */
+
+.trading-bg {
+  background-color: #0a0e17;
+  background-image: url('https://images.unsplash.com/photo-1640340434855-6084b1f4901c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: soft-light;
+  color: white;
+  position: relative;
+}
+
+.trading-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(10, 14, 23, 0.7), rgba(10, 14, 23, 0.9));
+  z-index: 1;
+}
+
+.trading-bg .hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.trading-bg .hero-title {
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.trading-bg .hero-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.trading-bg .hero-secondary-button {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.trading-bg .hero-secondary-button:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+} 
