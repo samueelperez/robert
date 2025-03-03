@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaChartLine, FaBook, FaChartPie, FaArrowRight, FaGithub, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import '../styles/LandingPage.css';
 
 const LandingPage = () => {
   // Función para desplazarse a la sección de características
@@ -12,96 +14,119 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      <header className="hero-section">
+      <section className="hero-section">
+        <div className="hero-bg-circle-1"></div>
+        <div className="hero-bg-circle-2"></div>
+        
         <div className="hero-content">
-          <h1>Trading Journal</h1>
+          <h1 className="hero-title">Mejora tu Trading con Análisis Detallado</h1>
           <p className="hero-subtitle">
-            Registra, analiza y mejora tus operaciones de trading
+            Registra, analiza y optimiza tus operaciones de trading con nuestra plataforma integral de seguimiento y análisis.
           </p>
+          
+          <div className="hero-buttons">
+            <Link to="/dashboard" className="hero-primary-button">
+              Comenzar Ahora <FaArrowRight />
+            </Link>
+            <button className="hero-secondary-button">
+              Saber Más
+            </button>
+          </div>
+          
+          <img 
+            src="/images/trading-dashboard.png" 
+            alt="Trading Dashboard" 
+            className="hero-image"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.style.display = 'none';
+            }}
+          />
+        </div>
+      </section>
+      
+      <section className="features-section">
+        <div className="features-container">
+          <h2 className="section-title">Características Principales</h2>
+          <p className="section-subtitle">
+            Herramientas diseñadas para ayudarte a mejorar tu rendimiento en el trading
+          </p>
+          
+          <div className="features-grid">
+            <div className="feature-card">
+              <div className="feature-icon">
+                <FaChartLine />
+              </div>
+              <h3 className="feature-title">Diario de Operaciones</h3>
+              <p className="feature-description">
+                Registra todas tus operaciones con detalles completos: entrada, salida, tamaño, razón y resultado.
+              </p>
+            </div>
+            
+            <div className="feature-card">
+              <div className="feature-icon">
+                <FaChartPie />
+              </div>
+              <h3 className="feature-title">Análisis de Rendimiento</h3>
+              <p className="feature-description">
+                Visualiza estadísticas clave como ratio de victorias, factor de beneficio y rendimiento por instrumento.
+              </p>
+            </div>
+            
+            <div className="feature-card">
+              <div className="feature-icon">
+                <FaBook />
+              </div>
+              <h3 className="feature-title">Diario de Aprendizaje</h3>
+              <p className="feature-description">
+                Documenta tus lecciones, ideas y estrategias para mejorar continuamente tu enfoque de trading.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section className="cta-section">
+        <div className="cta-container">
+          <h2 className="cta-title">¿Listo para llevar tu trading al siguiente nivel?</h2>
+          <p className="cta-description">
+            Comienza a registrar y analizar tus operaciones hoy mismo para identificar patrones y mejorar tus resultados.
+          </p>
+          
           <Link to="/dashboard" className="cta-button">
-            Comenzar ahora →
+            Comenzar Gratis <FaArrowRight />
           </Link>
         </div>
-        <div className="hero-image">
-          <img src="/images/trading-chart.svg" alt="Trading Chart" />
-        </div>
-        
-        {/* Indicador de desplazamiento */}
-        <div className="scroll-indicator" onClick={scrollToFeatures}>
-          <span>Descubre más</span>
-          <div className="scroll-arrow"></div>
-        </div>
-      </header>
-
-      <section className="features-section" id="features">
-        <h2>Características Principales</h2>
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon">
-              📈
-            </div>
-            <h3>Dashboard Interactivo</h3>
-            <p>Visualiza tu rendimiento con gráficos interactivos y métricas en tiempo real.</p>
-          </div>
-          
-          <div className="feature-card">
-            <div className="feature-icon">
-              📝
-            </div>
-            <h3>Diario de Operaciones</h3>
-            <p>Registra todas tus operaciones con detalles completos y notas personalizadas.</p>
-          </div>
-          
-          <div className="feature-card">
-            <div className="feature-icon">
-              📊
-            </div>
-            <h3>Análisis de Rendimiento</h3>
-            <p>Analiza tu rendimiento con métricas avanzadas y descubre patrones en tus operaciones.</p>
-          </div>
-          
-          <div className="feature-card">
-            <div className="feature-icon">
-              🧠
-            </div>
-            <h3>Diario de Aprendizaje</h3>
-            <p>Documenta tus lecciones y mantén un registro de tu evolución como trader.</p>
-          </div>
-        </div>
       </section>
-
-      <section className="benefits-section">
-        <h2>Beneficios</h2>
-        <div className="benefits-container">
-          <div className="benefit-item">
-            <h3>Mejora tu disciplina</h3>
-            <p>Mantén un registro consistente de tus operaciones y decisiones.</p>
+      
+      <footer className="footer">
+        <div className="footer-container">
+          <div className="footer-logo">Trading Journal</div>
+          
+          <div className="footer-links">
+            <a href="#" className="footer-link">Características</a>
+            <a href="#" className="footer-link">Precios</a>
+            <a href="#" className="footer-link">Recursos</a>
+            <a href="#" className="footer-link">Contacto</a>
           </div>
           
-          <div className="benefit-item">
-            <h3>Identifica patrones</h3>
-            <p>Descubre qué estrategias funcionan mejor para ti y en qué condiciones.</p>
+          <div className="footer-social">
+            <a href="#" className="social-icon">
+              <FaTwitter />
+            </a>
+            <a href="#" className="social-icon">
+              <FaGithub />
+            </a>
+            <a href="#" className="social-icon">
+              <FaLinkedin />
+            </a>
           </div>
           
-          <div className="benefit-item">
-            <h3>Reduce errores emocionales</h3>
-            <p>Registra tus emociones durante las operaciones y aprende a controlarlas.</p>
-          </div>
-          
-          <div className="benefit-item">
-            <h3>Evoluciona como trader</h3>
-            <p>Visualiza tu progreso a lo largo del tiempo y celebra tus mejoras.</p>
+          <div className="footer-copyright">
+            &copy; {new Date().getFullYear()} Trading Journal. Todos los derechos reservados.
           </div>
         </div>
-      </section>
-
-      <section className="cta-section">
-        <h2>¿Listo para mejorar tu trading?</h2>
-        <p>Comienza a registrar y analizar tus operaciones hoy mismo.</p>
-        <Link to="/dashboard" className="cta-button">
-          Acceder a las herramientas →
-        </Link>
-      </section>
+      </footer>
     </div>
   );
 };

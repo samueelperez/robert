@@ -20,6 +20,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-color);
   color: var(--text-color);
+  overflow-x: hidden;
 }
 
 code {
@@ -51,10 +52,11 @@ code {
 }
 
 .main-content {
-  display: flex;
-  flex: 1;
   min-height: calc(100vh - 120px); /* Ajustar según la altura del header y footer */
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .sidebar {
@@ -136,4 +138,16 @@ html, body, #root, .app {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+/* Asegurarse de que las páginas ocupen todo el espacio disponible */
+.dashboard-page,
+.trade-journal-container,
+.learning-journal-container,
+.settings-page,
+.portfolio-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 160px); /* Ajustar según la altura del header, footer y padding */
 }
