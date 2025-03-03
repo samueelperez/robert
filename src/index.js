@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './styles/LandingPage.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { TradeProvider } from './context/TradeContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <TradeProvider>
-      <App />
-    </TradeProvider>
+    <ThemeProvider>
+      <TradeProvider>
+        <App />
+      </TradeProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
